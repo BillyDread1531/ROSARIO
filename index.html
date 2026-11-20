@@ -16,6 +16,10 @@
     --gold-light:#E4C87A;
     --card-bg:#FFFDF8;
     --border:#E3CFAE;
+    --guia-bg:#F7E6B8;
+    --guia-border:#D8B35C;
+    --todos-bg:#E8EFE2;
+    --todos-border:#AEC79A;
     --shadow:0 3px 14px rgba(90,40,20,0.14);
     --radius:18px;
     --fs-base:20px;
@@ -31,6 +35,10 @@
     --gold-light:#F3DFA0;
     --card-bg:#271E17;
     --border:#4A3A2B;
+    --guia-bg:#3B2E1A;
+    --guia-border:#6B5325;
+    --todos-bg:#1E2A20;
+    --todos-border:#3E5A3C;
     --shadow:0 3px 14px rgba(0,0,0,0.5);
   }
   *{box-sizing:border-box;}
@@ -46,7 +54,7 @@
   }
   h1,h2,h3{font-family:Georgia,"Times New Roman",serif;margin:0.2em 0 0.4em;color:var(--primary);}
   .wrap{max-width:760px;margin:0 auto;padding:0 14px 60px;}
-
+  /* ---------- TOPBAR ---------- */
   .topbar{
     background:linear-gradient(135deg,var(--primary-dark),var(--primary));
     color:#FFF7E8;
@@ -59,44 +67,150 @@
   .topbar h1{color:#FFF7E8;font-size:1.6em;margin:6px 0 2px;}
   .topbar .sub{color:var(--gold-light);font-size:.95em;margin:0;}
   .cross{font-size:1.8em;display:block;}
-  .controls{display:flex;justify-content:center;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .controls{
+    display:flex;justify-content:center;gap:10px;margin-top:14px;flex-wrap:wrap;
+  }
   .ctrl-btn{
-    background:rgba(255,255,255,0.14);color:#FFF7E8;border:1px solid rgba(255,255,255,0.3);
-    border-radius:12px;padding:8px 14px;font-size:0.95em;cursor:pointer;min-height:44px;
+    background:rgba(255,255,255,0.14);
+    color:#FFF7E8;
+    border:1px solid rgba(255,255,255,0.3);
+    border-radius:12px;
+    padding:8px 14px;
+    font-size:0.95em;
+    cursor:pointer;
+    min-height:44px;
   }
   .ctrl-btn:active{background:rgba(255,255,255,0.3);}
-  .beads-divider{display:flex;justify-content:center;gap:6px;margin:14px 0 2px;}
-  .beads-divider span{width:9px;height:9px;border-radius:50%;background:var(--gold-light);opacity:.85;}
+  .beads-divider{
+    display:flex;justify-content:center;gap:6px;margin:14px 0 2px;
+  }
+  .beads-divider span{
+    width:9px;height:9px;border-radius:50%;background:var(--gold-light);opacity:.85;
+  }
   .beads-divider span:nth-child(5n){background:#FFF7E8;width:12px;height:12px;}
 
-  .tabs{display:flex;gap:6px;margin:22px 0 14px;border-bottom:2px solid var(--border);}
+  /* ---------- DAY PICKER ---------- */
+  .section-title{font-size:1.1em;margin:22px 0 10px;color:var(--primary);display:flex;align-items:center;gap:8px;}
+  .daypicker{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:8px;}
+  .day-btn{
+    flex:1 1 auto;min-width:64px;
+    background:var(--card-bg);border:2px solid var(--border);color:var(--text);
+    border-radius:12px;padding:10px 6px;font-size:.95em;font-weight:600;cursor:pointer;
+    min-height:48px;
+  }
+  .day-btn.active{background:var(--primary);color:#FFF7E8;border-color:var(--primary-dark);}
+  .today-tag{font-size:.7em;display:block;opacity:.75;font-weight:400;}
+  .set-banner{
+    background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);
+    padding:14px 16px;margin:10px 0 18px;text-align:center;
+  }
+  .set-banner strong{color:var(--primary);font-size:1.1em;}
+  .set-banner small{display:block;color:var(--text-soft);margin-top:4px;}
+
+  /* ---------- TABS ---------- */
+  .tabs{display:flex;gap:6px;margin:18px 0 14px;border-bottom:2px solid var(--border);flex-wrap:wrap;}
   .tab-btn{
     flex:1;background:none;border:none;color:var(--text-soft);padding:10px 4px;
-    font-size:1em;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;min-height:46px;
+    font-size:.92em;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;
+    min-height:46px;min-width:70px;
   }
   .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
   .tabpanel{display:none;}
   .tabpanel.active{display:block;}
 
-  details.card{
+  /* ---------- ROLE TOGGLE ---------- */
+  .role-toggle{
+    display:flex;gap:8px;margin-bottom:16px;background:var(--card-bg);border:1px solid var(--border);
+    border-radius:var(--radius);padding:8px;box-shadow:var(--shadow);
+  }
+  .role-btn{
+    flex:1;border:2px solid transparent;background:var(--bg-alt);color:var(--text);
+    border-radius:12px;padding:10px 6px;font-size:.92em;font-weight:600;cursor:pointer;min-height:48px;
+  }
+  .role-btn.active{background:var(--primary);color:#FFF7E8;}
+
+  /* ---------- MYSTERY CARD / ACCORDION ---------- */
+  details.mystery{
     background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);
     margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden;
   }
-  details.card > summary{
+  details.mystery > summary{
     list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;gap:12px;
-    font-weight:700;font-size:1.05em;color:var(--primary-dark);
+    font-weight:700;font-size:1.02em;
   }
-  details.card > summary::-webkit-details-marker{display:none;}
-  .chevron{margin-left:auto;transition:transform .2s;color:var(--gold);font-size:1.3em;flex-shrink:0;}
+  details.mystery > summary::-webkit-details-marker{display:none;}
+  .m-num{
+    background:var(--primary);color:#FFF7E8;border-radius:50%;width:38px;height:38px;
+    display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;flex-shrink:0;
+  }
+  .m-titles{flex:1;}
+  .m-titles .fruto{display:block;font-weight:400;color:var(--text-soft);font-size:.85em;margin-top:2px;}
+  .chevron{transition:transform .2s;color:var(--gold);font-size:1.3em;}
   details[open] .chevron{transform:rotate(90deg);}
-  .card-body{padding:0 18px 20px;white-space:pre-line;}
-  .card-body p{margin:0 0 12px;}
-  .resp{
-    text-align:center;font-style:italic;color:var(--primary-dark);font-weight:700;
-    margin:10px 0;padding-top:8px;border-top:1px dashed var(--gold);
+  .mystery-body{padding:0 18px 20px;}
+  .meditacion{
+    background:var(--bg-alt);border-left:4px solid var(--gold);border-radius:10px;
+    padding:12px 14px;margin-bottom:16px;font-style:italic;color:var(--text-soft);
   }
-  .small-note{color:var(--text-soft);font-size:.85em;font-style:italic;}
+
+  /* ---------- PRAYER LINES ---------- */
+  .prayer-block{margin-bottom:16px;}
+  .prayer-block h4{margin:0 0 8px;color:var(--primary-dark);font-size:1em;display:flex;align-items:center;gap:6px;}
+  .line{
+    border-radius:12px;padding:12px 14px;margin-bottom:8px;border:2px solid transparent;
+    white-space:pre-line;
+  }
+  .line .tag{display:block;font-size:.72em;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;opacity:.8;}
+  .line.guia{background:var(--guia-bg);border-color:var(--guia-border);}
+  .line.todos{background:var(--todos-bg);border-color:var(--todos-border);}
+  .line.single{background:var(--bg-alt);border-color:var(--border);}
+  body.role-guia .line.guia{box-shadow:0 0 0 3px var(--gold-light) inset;}
+  body.role-todos .line.todos{box-shadow:0 0 0 3px var(--todos-border) inset;}
+  body.role-guia .line.todos, body.role-todos .line.guia{opacity:.78;}
+  .resp{text-align:center;font-style:italic;color:var(--primary-dark);font-weight:700;margin:4px 0 14px;}
+
+  /* ---------- BEAD COUNTER ---------- */
+  .counter-box{
+    background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);
+    padding:14px;margin-bottom:16px;text-align:center;
+  }
+  .beads-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+  .bead-dot{width:26px;height:26px;border-radius:50%;border:2px solid var(--gold);background:var(--card-bg);transition:background .2s;}
+  .bead-dot.filled{background:var(--gold);}
+  .counter-status{font-size:1.05em;font-weight:700;color:var(--primary);margin:6px 0 10px;}
+  .counter-status.done{color:#3C7A3E;}
+  .counter-buttons{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .cbtn{
+    border:none;border-radius:12px;padding:10px 16px;font-weight:700;cursor:pointer;min-height:46px;font-size:.95em;
+  }
+  .cbtn.plus{background:var(--primary);color:#FFF7E8;}
+  .cbtn.minus{background:var(--bg-alt);color:var(--text);border:1px solid var(--border);}
+  .cbtn.reset{background:none;color:var(--text-soft);text-decoration:underline;}
+
+  .nav-row{display:flex;justify-content:space-between;gap:10px;margin-top:6px;}
+  .nav-btn{flex:1;background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:10px;font-weight:600;cursor:pointer;color:var(--text);}
+
+  /* ---------- CHECKLIST (tab 2) ---------- */
+  .progress-wrap{margin-bottom:16px;}
+  .progress-bar{height:14px;background:var(--bg-alt);border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+  .progress-fill{height:100%;background:var(--primary);width:0%;transition:width .3s;}
+  .progress-label{text-align:center;font-size:.9em;color:var(--text-soft);margin-top:6px;}
+  .done-check{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:600;cursor:pointer;}
+  .done-check input{width:22px;height:22px;}
+
+  .plain-prayer{background:var(--bg-alt);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;border:1px solid var(--border);}
+  .plain-prayer h4{margin:0 0 6px;color:var(--primary-dark);}
+
+  .note-box{background:var(--card-bg);border:1px dashed var(--gold);border-radius:var(--radius);padding:12px 14px;font-size:.92em;color:var(--text-soft);margin:14px 0;}
+  .ref-table{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:.92em;}
+  .ref-table td{padding:8px 6px;border-bottom:1px solid var(--border);}
+  .ref-table td:first-child{font-weight:700;color:var(--primary);width:40%;}
+
   .footer{text-align:center;color:var(--text-soft);font-size:.85em;margin-top:30px;padding-top:14px;border-top:1px solid var(--border);}
+
+  @media (min-width:600px){
+    .day-btn{min-width:80px;}
+  }
 </style>
 </head>
 <body>
@@ -104,7 +218,7 @@
 <div class="topbar">
   <span class="cross">✝</span>
   <h1>Guía del Santo Rosario</h1>
-  <p class="sub">Oraciones y cánticos, tal como están en el librito</p>
+  <p class="sub">Para rezar con calma, en orden, sin complicarse</p>
   <div class="beads-divider">
     <span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span>
@@ -118,165 +232,264 @@
 
 <div class="wrap">
 
+  <h2 class="section-title">📅 ¿Qué día es hoy?</h2>
+  <div class="daypicker" id="dayPicker"></div>
+  <div class="set-banner" id="setBanner"></div>
+
   <div class="tabs">
-    <button class="tab-btn active" data-tab="t1">🙏 Oraciones</button>
-    <button class="tab-btn" data-tab="t2">🎶 Canciones</button>
+    <button class="tab-btn active" data-tab="t1">🙏 Guía por Misterio</button>
+    <button class="tab-btn" data-tab="t2">📖 Rosario Completo</button>
+    <button class="tab-btn" data-tab="t3">❓ Quién dice qué</button>
+    <button class="tab-btn" data-tab="t4">🎶 Canciones</button>
   </div>
 
-  <!-- TAB ORACIONES -->
+  <!-- TAB 1 -->
   <div class="tabpanel active" id="t1">
-
-    <details class="card" open>
-      <summary>Salve<span class="chevron">▸</span></summary>
-      <div class="card-body">
-<p>Todos los demás contestan: Santa María.
-A continuación el que preside, juntamente con todos dicen:</p>
-<p>Dios te salve, María Santísima, templo y sagrario de la Santísima Trinidad. Dios te salve, Castísimo José; María es Madre de Gracia, Madre de misericordia. En la vida y en la muerte, ampáranos, gran Señora.</p>
-<p>Dios te salve, Reina y Madre de misericordia, dulzura y esperanza nuestra. Dios te salve. A ti clamamos los desterrados hijos de Eva; a ti suspiramos, gimiendo y llorando, en este valle de lágrimas. Ea, pues, Señora, Abogada nuestra, vuelve a nosotros esos tus ojos misericordiosos, y después de este destierro, muéstranos a Jesús, fruto bendito de tu vientre. ¡Oh clemente, oh piadosa, oh dulce Virgen María! Ruega por nosotros, Santa Madre de Dios, para que seamos dignos de alcanzar las promesas de Nuestro Señor Jesucristo. Amén.</p>
-<p>Al sacratísimo corazón de Jesús, pidiendo el aumento de nuestra Fe.</p>
-      </div>
-    </details>
-
-    <details class="card">
-      <summary>Credo<span class="chevron">▸</span></summary>
-      <div class="card-body">
-<p>Creo en Dios Padre Todopoderoso, Creador del cielo y de la tierra; y en Jesucristo, su único Hijo, Nuestro Señor, que fue concebido por obra y gracia del Espíritu Santo, nació de Santa María Virgen, padeció bajo el poder de Poncio Pilato, fue crucificado, muerto y sepultado; descendió a los infiernos y al tercer día resucitó de entre los muertos; subió a los cielos, está sentado a la diestra de Dios Padre Todopoderoso; desde allí ha de venir a juzgar a los vivos y a los muertos. Creo en el Espíritu Santo, la Santa Iglesia Católica, la Comunión de los Santos, el perdón de los pecados, la resurrección de los muertos y la vida eterna. Amén.</p>
-      </div>
-    </details>
-
-    <details class="card">
-      <summary>Para ganar indulgencias<span class="chevron">▸</span></summary>
-      <div class="card-body">
-<p class="small-note">Se reza la siguiente oración:</p>
-<p>Suplícote, Dios mío, Padre Eterno, por tu infinita bondad, por tu misericordia infinita y por los méritos de Nuestro Señor Jesucristo, seáis servido de mirar por la exaltación de nuestra Santa Fe Católica; la paz y la concordia entre los príncipes cristianos; la conversión de los herejes, infieles y pecadores. Concédenos, Señor, la intención del Sumo Pontífice, el tesoro de estas Santas Indulgencias, las que aplico por las benditas almas del Purgatorio, y a nosotros nos des luz y perseverancia hasta el fin de nuestra vida. Amén.</p>
-      </div>
-    </details>
-
-    <details class="card">
-      <summary>Letanía a la Santísima Virgen<span class="chevron">▸</span></summary>
-      <div class="card-body">
-<p>Señor, ten piedad de nosotros.
-Jesucristo, ten piedad de nosotros.
-Señor, ten piedad de nosotros.
-Cristo, óyenos.
-Cristo, escúchanos.</p>
-<p>Dios Padre celestial, ten piedad de nosotros.
-Dios Hijo, Redentor del mundo, ten piedad de nosotros.
-Dios Espíritu Santo, ten piedad de nosotros.
-Santísima Trinidad, un solo Dios verdadero, ten piedad de nosotros.</p>
-<p>Santa María,
-Santa Madre de Dios,
-Santa Virgen de las vírgenes,
-Madre de Jesucristo,
-Madre purísima,
-Madre santísima,
-Madre virgen,
-Madre sin mancha,
-Madre admirable,
-Madre amable,
-Madre del buen consejo,
-Madre del Creador,
-Madre del Salvador,
-Virgen prudentísima,
-Virgen venerada,
-Virgen digna de alabanza,
-Virgen poderosa.</p>
-<p class="resp">Ruega por nosotros</p>
-<p>Virgen clemente,
-Virgen fiel,
-Espejo de justicia,
-Trono de sabiduría,
-Causa de nuestra alegría,
-Vaso espiritual,
-Vaso digno de honor,
-Vaso insigne de devoción,
-Rosa mística,
-Torre de David,
-Torre de marfil,
-Casa de oro,
-Arca de la alianza,
-Puerta del cielo,
-Estrella de la mañana,
-Salud de los enfermos,
-Refugio de los pecadores,
-Consoladora de los afligidos,
-Ayuda de los inmigrantes,
-Auxilio de los cristianos,
-Reina de los ángeles,
-Reina de los patriarcas,
-Reina de los profetas,
-Reina de los apóstoles,
-Reina de los mártires,
-Reina de todos los santos,
-Reina concebida sin mancha original,
-Reina del Sacratísimo Rosario,
-Reina de la paz,
-Reina de Guatemala.</p>
-<p class="resp">Ruega por nosotros</p>
-<p>Cordero de Dios, que quita los pecados del mundo, perdónanos, Señor.
-Cordero de Dios, que quita los pecados del mundo, escúchanos, Señor.
-Cordero de Dios, que quita los pecados del mundo, ten piedad de nosotros.</p>
-<p>Bajo tu amparo nos acogemos, Santa Madre de Dios; no desprecies nuestras súplicas en las necesidades, antes bien líbranos de todos los peligros, oh Virgen siempre gloriosa y bendita.</p>
-<p>Ruega por nosotros, Santa Madre de Dios.
-Para que seamos dignos de las promesas de Nuestro Señor Jesucristo.</p>
-<p><strong>Oración</strong></p>
-<p>Suplicamos, oh Dios omnipotente, que asistas con tu divino favor a los que rezamos el Rosario de la Bienaventurada Virgen María, para que, contemplando estos sagrados misterios, merezcamos recibir el fruto de ellos en el cielo. Amén.</p>
-      </div>
-    </details>
-
-    <details class="card">
-      <summary>Oración a María Santísima<span class="chevron">▸</span></summary>
-      <div class="card-body">
-<p>Acordaos, oh piadosísima Virgen María, que jamás se oyó decir que ni uno tan solo de cuantos han acudido a vuestra protección, implorando vuestra asistencia y reclamando vuestro socorro, haya sido abandonado de vos. Animado, pues, con esta confianza, a vos también acudo, oh Virgen, Madre de las vírgenes, y aunque agobiado bajo el peso de mis pecados, me atrevo a aparecer ante vuestra presencia soberana. No desoigáis, oh Madre de Dios, mis súplicas, antes bien, acogedlas y despachadlas favorablemente. Amén.</p>
-      </div>
-    </details>
-
-    <details class="card">
-      <summary>Jaculatoria<span class="chevron">▸</span></summary>
-      <div class="card-body">
-<p>Bendita sea tu pureza,
-y eternamente lo sea,
-pues todo un Dios se recrea
-en tan graciosa belleza;
-a ti, celestial princesa,</p>
-<p>Virgen sagrada María,
-te ofrezco desde este día,
-alma, vida y corazón;
-mírame con compasión,
-no me dejes, Madre mía.</p>
-<p>¡Viva Jesús, viva María, viva la Gracia, viva el Rosario! ¡Viva la Fe en nuestros corazones, y muera el pecado!</p>
-<p>Bendito y alabado sea el Santísimo Sacramento del altar, y la Reina de los Ángeles, María Santísima, Madre de Dios y Madre nuestra, concebida sin mancha de pecado original desde el primer instante de su ser natural. Por siempre Jesús, María y José.</p>
-<p>Todas las benditas ánimas del purgatorio, por la misericordia de Dios, descansen en paz. Amén.</p>
-      </div>
-    </details>
-
+    <div class="role-toggle">
+      <button class="role-btn active" id="roleGuia">🗣️ Voy a guiar (leo en voz alta)</button>
+      <button class="role-btn" id="roleTodos">🙏 Solo voy a responder</button>
+    </div>
+    <div class="note-box" id="roleHint"></div>
+    <div id="mysteryList"></div>
   </div>
 
-  <!-- TAB CANCIONES -->
+  <!-- TAB 2 -->
   <div class="tabpanel" id="t2">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="progress-label" id="progressLabel">0 de 7 partes completadas</p>
+    </div>
 
-    <details class="card" open>
-      <summary>Humildes Gracias<span class="chevron">▸</span></summary>
-      <div class="card-body">
-<p>Humildes gracias demos a Dios,
-que en una Hostia todo se dio.</p>
-<p>Gracias mil veces, gracias mil veces,
-humildes gracias demos a Dios.</p>
-<p>El que en los cielos encendió el sol,
-vino a sus siervos con gran amor.</p>
-<p>Y allí escondido, con blanda voz,
-dame, me dice, tu corazón.</p>
-<p>¡Oh Dueño mío, rey y señor!
-¿Cómo pagarte tan rico don?</p>
-<p>Los que siguen y oyen tu voz,
-la vida eterna tendrán, Señor.</p>
-<p>Pan de los fuertes, que das vigor,
-al débil niño y al pecador.</p>
-<p>A ti me entrego, todo me doy,
-mi alma y vida, mi corazón.</p>
+    <details class="mystery" id="full_inicio">
+      <summary><span class="m-num">✝</span><span class="m-titles">Oraciones iniciales</span><span class="chevron">▸</span></summary>
+      <div class="mystery-body">
+        <div class="prayer-block">
+          <h4>✝️ Señal de la Cruz</h4>
+          <div class="line single">Por la señal de la Santa Cruz, de nuestros enemigos líbranos, Señor, Dios nuestro. En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>📜 Credo (se reza junto, o lo dice quien guía)</h4>
+          <div class="line single">Creo en Dios Padre Todopoderoso, Creador del cielo y de la tierra; y en Jesucristo, su único Hijo, Nuestro Señor, que fue concebido por obra y gracia del Espíritu Santo, nació de Santa María Virgen, padeció bajo el poder de Poncio Pilato, fue crucificado, muerto y sepultado; descendió a los infiernos y al tercer día resucitó de entre los muertos; subió a los cielos, está sentado a la diestra de Dios Padre Todopoderoso; desde allí ha de venir a juzgar a los vivos y a los muertos. Creo en el Espíritu Santo, la Santa Iglesia Católica, la Comunión de los Santos, el perdón de los pecados, la resurrección de los muertos y la vida eterna. Amén.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>🙏 Padre Nuestro</h4>
+          <div class="line guia"><span class="tag">Guía dice</span>Padre nuestro, que estás en el cielo, santificado sea tu Nombre, venga a nosotros tu reino, hágase tu voluntad en la tierra como en el cielo.</div>
+          <div class="line todos"><span class="tag">Todos responden</span>Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>🌸 3 Ave Marías (por la Fe, la Esperanza y la Caridad)</h4>
+          <div class="line guia"><span class="tag">Guía dice</span>Dios te salve, María, llena eres de gracia, el Señor es contigo. Bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús.</div>
+          <div class="line todos"><span class="tag">Todos responden</span>Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén.</div>
+          <div class="note-box">Se repite 3 veces completas (Guía / Todos cada vez).</div>
+        </div>
+        <div class="prayer-block">
+          <h4>✨ Gloria</h4>
+          <div class="line guia"><span class="tag">Guía dice</span>Gloria al Padre, al Hijo y al Espíritu Santo.</div>
+          <div class="line todos"><span class="tag">Todos responden</span>Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén.</div>
+        </div>
+        <label class="done-check"><input type="checkbox" data-progress="inicio"> Marcar como hecho</label>
       </div>
     </details>
 
+    <div id="full_mysteries"></div>
+
+    <details class="mystery" id="full_letanias">
+      <summary><span class="m-num">🌿</span><span class="m-titles">Letanía a la Santísima Virgen <span class="fruto">(opcional, se puede omitir)</span></span><span class="chevron">▸</span></summary>
+      <div class="mystery-body">
+        <div class="line single">
+        Señor, ten piedad de nosotros.<br>
+        Jesucristo, ten piedad de nosotros.<br>
+        Señor, ten piedad de nosotros.<br>
+        Cristo, óyenos.<br>
+        Cristo, escúchanos.<br><br>
+        Dios Padre celestial, ten piedad de nosotros.<br>
+        Dios Hijo, Redentor del mundo, ten piedad de nosotros.<br>
+        Dios Espíritu Santo, ten piedad de nosotros.<br>
+        Santísima Trinidad, un solo Dios verdadero, ten piedad de nosotros.
+        </div>
+        <div class="line single">
+        Santa María,<br>
+        Santa Madre de Dios,<br>
+        Santa Virgen de las vírgenes,<br>
+        Madre de Jesucristo,<br>
+        Madre purísima,<br>
+        Madre santísima,<br>
+        Madre virgen,<br>
+        Madre sin mancha,<br>
+        Madre admirable,<br>
+        Madre amable,<br>
+        Madre del buen consejo,<br>
+        Madre del Creador,<br>
+        Madre del Salvador,<br>
+        Virgen prudentísima,<br>
+        Virgen venerada,<br>
+        Virgen digna de alabanza,<br>
+        Virgen poderosa.
+        </div>
+        <p class="resp">Ruega por nosotros</p>
+        <div class="line single">
+        Virgen clemente,<br>
+        Virgen fiel,<br>
+        Espejo de justicia,<br>
+        Trono de sabiduría,<br>
+        Causa de nuestra alegría,<br>
+        Vaso espiritual,<br>
+        Vaso digno de honor,<br>
+        Vaso insigne de devoción,<br>
+        Rosa mística,<br>
+        Torre de David,<br>
+        Torre de marfil,<br>
+        Casa de oro,<br>
+        Arca de la alianza,<br>
+        Puerta del cielo,<br>
+        Estrella de la mañana,<br>
+        Salud de los enfermos,<br>
+        Refugio de los pecadores,<br>
+        Consoladora de los afligidos,<br>
+        Ayuda de los inmigrantes,<br>
+        Auxilio de los cristianos,<br>
+        Reina de los ángeles,<br>
+        Reina de los patriarcas,<br>
+        Reina de los profetas,<br>
+        Reina de los apóstoles,<br>
+        Reina de los mártires,<br>
+        Reina de todos los santos,<br>
+        Reina concebida sin mancha original,<br>
+        Reina del Sacratísimo Rosario,<br>
+        Reina de la paz,<br>
+        Reina de Guatemala.
+        </div>
+        <p class="resp">Ruega por nosotros</p>
+        <div class="line single">
+        Cordero de Dios, que quita los pecados del mundo, perdónanos, Señor.<br>
+        Cordero de Dios, que quita los pecados del mundo, escúchanos, Señor.<br>
+        Cordero de Dios, que quita los pecados del mundo, ten piedad de nosotros.<br><br>
+        Bajo tu amparo nos acogemos, Santa Madre de Dios; no desprecies nuestras súplicas en las necesidades, antes bien líbranos de todos los peligros, oh Virgen siempre gloriosa y bendita.
+        </div>
+        <div class="line guia"><span class="tag">Guía</span>Ruega por nosotros, Santa Madre de Dios.</div>
+        <div class="line todos"><span class="tag">Todos</span>Para que seamos dignos de las promesas de Nuestro Señor Jesucristo.</div>
+        <div class="prayer-block">
+          <h4>🙏 Oración</h4>
+          <div class="line single">Suplicamos, oh Dios omnipotente, que asistas con tu divino favor a los que rezamos el Rosario de la Bienaventurada Virgen María, para que, contemplando estos sagrados misterios, merezcamos recibir el fruto de ellos en el cielo. Amén.</div>
+        </div>
+        <label class="done-check"><input type="checkbox" data-progress="letanias"> Marcar como hecho</label>
+      </div>
+    </details>
+
+    <details class="mystery" id="full_final">
+      <summary><span class="m-num">👑</span><span class="m-titles">Oraciones finales</span><span class="chevron">▸</span></summary>
+      <div class="mystery-body">
+        <div class="prayer-block">
+          <h4>🕊️ Antes de la Salve</h4>
+          <div class="line single">Dios te salve, María Santísima, templo y sagrario de la Santísima Trinidad. Dios te salve, Castísimo José; María es Madre de Gracia, Madre de misericordia. En la vida y en la muerte, ampáranos, gran Señora.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>👑 Salve</h4>
+          <div class="line single">Dios te salve, Reina y Madre de misericordia, dulzura y esperanza nuestra. Dios te salve. A ti clamamos los desterrados hijos de Eva; a ti suspiramos, gimiendo y llorando, en este valle de lágrimas. Ea, pues, Señora, Abogada nuestra, vuelve a nosotros esos tus ojos misericordiosos, y después de este destierro, muéstranos a Jesús, fruto bendito de tu vientre. ¡Oh clemente, oh piadosa, oh dulce Virgen María! Ruega por nosotros, Santa Madre de Dios, para que seamos dignos de alcanzar las promesas de Nuestro Señor Jesucristo. Amén.</div>
+          <div class="line single">Al sacratísimo corazón de Jesús, pidiendo el aumento de nuestra Fe.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>🤍 Oración a María Santísima</h4>
+          <div class="line single">Acordaos, oh piadosísima Virgen María, que jamás se oyó decir que ni uno tan solo de cuantos han acudido a vuestra protección, implorando vuestra asistencia y reclamando vuestro socorro, haya sido abandonado de vos. Animado, pues, con esta confianza, a vos también acudo, oh Virgen, Madre de las vírgenes, y aunque agobiado bajo el peso de mis pecados, me atrevo a aparecer ante vuestra presencia soberana. No desoigáis, oh Madre de Dios, mis súplicas, antes bien, acogedlas y despachadlas favorablemente. Amén.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>🌹 Jaculatoria</h4>
+          <div class="line single">Bendita sea tu pureza, y eternamente lo sea, pues todo un Dios se recrea en tan graciosa belleza; a ti, celestial princesa.<br><br>
+          Virgen sagrada María, te ofrezco desde este día alma, vida y corazón; mírame con compasión, no me dejes, Madre mía.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>🎉 Aclamaciones</h4>
+          <div class="line single">¡Viva Jesús, viva María, viva la Gracia, viva el Rosario! ¡Viva la Fe en nuestros corazones, y muera el pecado!<br><br>
+          Bendito y alabado sea el Santísimo Sacramento del altar, y la Reina de los Ángeles, María Santísima, Madre de Dios y Madre nuestra, concebida sin mancha de pecado original desde el primer instante de su ser natural. Por siempre Jesús, María y José.<br><br>
+          Todas las benditas ánimas del purgatorio, por la misericordia de Dios, descansen en paz. Amén.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>🕯️ Para ganar indulgencias <span style="font-size:.8em;color:var(--text-soft);">(oración opcional)</span></h4>
+          <div class="line single">Suplícote, Dios mío, Padre Eterno, por tu infinita bondad, por tu misericordia infinita y por los méritos de Nuestro Señor Jesucristo, seáis servido de mirar por la exaltación de nuestra Santa Fe Católica; la paz y la concordia entre los príncipes cristianos; la conversión de los herejes, infieles y pecadores. Concédenos, Señor, la intención del Sumo Pontífice, el tesoro de estas Santas Indulgencias, las que aplico por las benditas almas del Purgatorio, y a nosotros nos des luz y perseverancia hasta el fin de nuestra vida. Amén.</div>
+        </div>
+        <div class="prayer-block">
+          <h4>✝️ Señal de la Cruz</h4>
+          <div class="line single">Por la señal de la Santa Cruz, de nuestros enemigos líbranos, Señor, Dios nuestro. En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén.</div>
+        </div>
+        <label class="done-check"><input type="checkbox" data-progress="final"> Marcar como hecho</label>
+      </div>
+    </details>
+
+    <div style="text-align:center;margin-top:10px;">
+      <button class="cbtn reset" id="btnResetProgress">Reiniciar todo el progreso</button>
+    </div>
+  </div>
+
+  <!-- TAB 3 -->
+  <div class="tabpanel" id="t3">
+    <h3>¿Quién es quién?</h3>
+    <p><strong>🗣️ Guía:</strong> la persona que dirige. Anuncia cada misterio y empieza cada oración (la primera parte).<br>
+    <strong>🙏 Todos:</strong> el resto del grupo responde la segunda parte de cada oración, en voz alta y junta.</p>
+
+    <div class="note-box">
+      En muchas familias y grupos el que guía dice toda la primera mitad de cada oración y todos responden la segunda mitad, <u>siempre igual en cada decena</u>. Algunas comunidades turnan quién guía cada misterio (por ejemplo, alternando entre dos personas o dos grupos). Si en tu grupo se hace distinto para algún misterio, simplemente ajusten entre ustedes quién lee cada parte — el contenido de las oraciones no cambia.
+    </div>
+
+    <h3>Tarjeta rápida de oraciones</h3>
+
+    <div class="plain-prayer">
+      <h4>🙏 Padre Nuestro</h4>
+      <div class="line guia"><span class="tag">Guía</span>Padre nuestro, que estás en el cielo, santificado sea tu Nombre, venga a nosotros tu reino, hágase tu voluntad en la tierra como en el cielo.</div>
+      <div class="line todos"><span class="tag">Todos</span>Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén.</div>
+    </div>
+
+    <div class="plain-prayer">
+      <h4>🌸 Ave María</h4>
+      <div class="line guia"><span class="tag">Guía</span>Dios te salve, María, llena eres de gracia, el Señor es contigo. Bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús.</div>
+      <div class="line todos"><span class="tag">Todos</span>Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén.</div>
+    </div>
+
+    <div class="plain-prayer">
+      <h4>✨ Gloria</h4>
+      <div class="line guia"><span class="tag">Guía</span>Gloria al Padre, al Hijo y al Espíritu Santo.</div>
+      <div class="line todos"><span class="tag">Todos</span>Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén.</div>
+    </div>
+
+    <div class="plain-prayer">
+      <h4>🕊️ Oh Jesús mío <span style="font-size:.8em;color:var(--text-soft);">(todos juntos)</span></h4>
+      <div class="line single">Oh Jesús mío, perdona nuestras culpas, líbranos del fuego del infierno, y lleva al cielo a todas las almas, especialmente a las más necesitadas de tu misericordia.</div>
+    </div>
+
+    <h3>El orden de cada decena (cada misterio)</h3>
+    <table class="ref-table">
+      <tr><td>1.</td><td>Se anuncia el misterio (Guía)</td></tr>
+      <tr><td>2.</td><td>1 Padre Nuestro (Guía / Todos)</td></tr>
+      <tr><td>3.</td><td>10 Ave Marías (Guía / Todos, 10 veces)</td></tr>
+      <tr><td>4.</td><td>1 Gloria (Guía / Todos)</td></tr>
+      <tr><td>5.</td><td>Oh Jesús mío (todos juntos)</td></tr>
+    </table>
+
+    <h3>¿Qué día se reza qué?</h3>
+    <table class="ref-table">
+      <tr><td>Lunes y Sábado</td><td>Misterios Gozosos</td></tr>
+      <tr><td>Martes y Viernes</td><td>Misterios Dolorosos</td></tr>
+      <tr><td>Miércoles y Domingo</td><td>Misterios Gloriosos</td></tr>
+      <tr><td>Jueves</td><td>Misterios Luminosos</td></tr>
+    </table>
+  </div>
+
+  <!-- TAB 4 -->
+  <div class="tabpanel" id="t4">
+    <details class="mystery" open>
+      <summary><span class="m-num">🎶</span><span class="m-titles">Humildes Gracias</span><span class="chevron">▸</span></summary>
+      <div class="mystery-body">
+        <div class="line single">
+        Humildes gracias demos a Dios, que en una Hostia todo se dio.<br><br>
+        Gracias mil veces, gracias mil veces, humildes gracias demos a Dios.<br><br>
+        El que en los cielos encendió el sol, vino a sus siervos con gran amor.<br><br>
+        Y allí escondido, con blanda voz, dame, me dice, tu corazón.<br><br>
+        ¡Oh Dueño mío, rey y señor! ¿Cómo pagarte tan rico don?<br><br>
+        Los que siguen y oyen tu voz, la vida eterna tendrán, Señor.<br><br>
+        Pan de los fuertes, que das vigor, al débil niño y al pecador.<br><br>
+        A ti me entrego, todo me doy, mi alma y vida, mi corazón.
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="footer">Hecho con cariño para rezar el Rosario con calma 🤍 · Funciona sin internet</div>
@@ -285,8 +498,66 @@ mi alma y vida, mi corazón.</p>
 <script>
 (function(){
   "use strict";
-  var root = document.documentElement;
 
+  var ORDINALES = ["Primer","Segundo","Tercer","Cuarto","Quinto"];
+
+  var SETS = {
+    gozosos:{ nombre:"Gozosos", dias:"Lunes y Sábado", misterios:[
+      {titulo:"La Anunciación del Ángel a María", fruto:"la humildad", meditacion:"El Arcángel Gabriel anuncia a María que será la Madre de Dios, y ella responde con humilde obediencia: “Hágase en mí según tu palabra”."},
+      {titulo:"La Visitación de María a su prima Isabel", fruto:"el amor al prójimo", meditacion:"María, llena de alegría, va a servir a su prima Isabel y la saluda con ternura; Isabel la llama bienaventurada."},
+      {titulo:"El Nacimiento de Jesús en Belén", fruto:"el desprendimiento de los bienes de este mundo", meditacion:"En la pobreza de un pesebre nace el Salvador del mundo, enseñándonos la sencillez y el desapego de las riquezas."},
+      {titulo:"La Presentación de Jesús en el Templo", fruto:"la obediencia", meditacion:"María y José presentan al Niño Jesús en el templo, cumpliendo la Ley con humilde obediencia a la voluntad de Dios."},
+      {titulo:"El Niño Jesús perdido y hallado en el Templo", fruto:"buscar siempre a Jesús", meditacion:"Después de tres días de búsqueda, María y José encuentran a Jesús enseñando en el templo; Él nos enseña a buscarlo siempre primero."}
+    ]},
+    dolorosos:{ nombre:"Dolorosos", dias:"Martes y Viernes", misterios:[
+      {titulo:"La Oración de Jesús en el Huerto", fruto:"el dolor por nuestros pecados", meditacion:"Jesús ora angustiado en Getsemaní, acepta la voluntad del Padre y suda sangre por amor a nosotros."},
+      {titulo:"La Flagelación de Jesús", fruto:"la pureza y mortificación de los sentidos", meditacion:"Jesús es azotado injustamente, soportando el dolor con paciencia por nuestra salvación."},
+      {titulo:"La Coronación de Espinas", fruto:"la humildad y el desprecio del mundo", meditacion:"Jesús es coronado de espinas y burlado como un falso rey, aceptando la humillación con amor."},
+      {titulo:"Jesús con la Cruz a cuestas camino del Calvario", fruto:"la paciencia en las pruebas", meditacion:"Jesús carga la Cruz camino al Calvario, cayendo y levantándose, enseñándonos a llevar con paciencia nuestras propias cruces."},
+      {titulo:"La Muerte de Jesús en la Cruz", fruto:"la conversión del corazón", meditacion:"Jesús muere en la Cruz por amor a toda la humanidad, perdonando y entregando su vida por nuestra salvación."}
+    ]},
+    gloriosos:{ nombre:"Gloriosos", dias:"Miércoles y Domingo", misterios:[
+      {titulo:"La Resurrección de Jesús", fruto:"la fe", meditacion:"Jesús resucita glorioso al tercer día, venciendo a la muerte y confirmando nuestra fe y esperanza."},
+      {titulo:"La Ascensión de Jesús a los Cielos", fruto:"la esperanza", meditacion:"Jesús sube a los cielos ante sus discípulos, prometiendo enviar al Espíritu Santo y abriéndonos el camino al cielo."},
+      {titulo:"La Venida del Espíritu Santo", fruto:"la sabiduría y el amor de Dios", meditacion:"El Espíritu Santo desciende sobre María y los Apóstoles en Pentecostés, dándoles fortaleza para anunciar el Evangelio."},
+      {titulo:"La Asunción de María a los Cielos", fruto:"una buena muerte", meditacion:"María es llevada en cuerpo y alma al cielo, signo de la gloria que espera a quienes siguen fielmente a Dios."},
+      {titulo:"La Coronación de María como Reina", fruto:"la devoción a María", meditacion:"María es coronada Reina del cielo y de la tierra, Madre nuestra que intercede siempre por sus hijos."}
+    ]},
+    luminosos:{ nombre:"Luminosos", dias:"Jueves", misterios:[
+      {titulo:"El Bautismo de Jesús en el Jordán", fruto:"la fidelidad a nuestro Bautismo", meditacion:"Jesús se bautiza en el Jordán y el Padre lo proclama su Hijo amado; recordamos nuestra propia vida de hijos de Dios."},
+      {titulo:"Las Bodas de Caná", fruto:"la confianza en la intercesión de María", meditacion:"Por intercesión de María, Jesús convierte el agua en vino; Ella nos invita siempre a confiar en su Hijo."},
+      {titulo:"El Anuncio del Reino de Dios", fruto:"el deseo de conversión", meditacion:"Jesús predica el Reino de Dios e invita a todos a convertirse y creer en el Evangelio."},
+      {titulo:"La Transfiguración", fruto:"el deseo de santidad", meditacion:"Jesús se transfigura ante Pedro, Santiago y Juan, mostrando su gloria y llamándonos a la santidad."},
+      {titulo:"La Institución de la Eucaristía", fruto:"el amor a la Eucaristía", meditacion:"En la Última Cena, Jesús instituye la Eucaristía, entregándose a sí mismo como alimento para nuestra vida."}
+    ]}
+  };
+
+  var DAY_ORDER = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+  var DAY_TO_SET = {Lunes:"gozosos",Martes:"dolorosos","Miércoles":"gloriosos",Jueves:"luminosos",Viernes:"dolorosos",Sábado:"gozosos",Domingo:"gloriosos"};
+  var JS_DAY_NAME = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+
+  var state = {
+    day: JS_DAY_NAME[new Date().getDay()],
+    role: "guia",
+    beads: {}
+  };
+
+  try{
+    var savedBeads = localStorage.getItem("rosario_beads");
+    if(savedBeads) state.beads = JSON.parse(savedBeads);
+    var savedProgress = localStorage.getItem("rosario_progress");
+    state.progress = savedProgress ? JSON.parse(savedProgress) : {};
+  }catch(e){ state.beads = {}; state.progress = {}; }
+
+  function saveBeads(){
+    try{ localStorage.setItem("rosario_beads", JSON.stringify(state.beads)); }catch(e){}
+  }
+  function saveProgress(){
+    try{ localStorage.setItem("rosario_progress", JSON.stringify(state.progress)); }catch(e){}
+  }
+
+  /* ---------- THEME & FONT ---------- */
+  var root = document.documentElement;
   function applyTheme(t){
     root.setAttribute("data-theme", t);
     try{ localStorage.setItem("rosario_theme", t); }catch(e){}
@@ -322,6 +593,7 @@ mi alma y vida, mi corazón.</p>
     applyFont(Math.max(FONT_MIN, cur-FONT_STEP));
   });
 
+  /* ---------- TABS ---------- */
   var tabBtns = document.querySelectorAll(".tab-btn");
   tabBtns.forEach(function(btn){
     btn.addEventListener("click", function(){
@@ -331,6 +603,210 @@ mi alma y vida, mi corazón.</p>
       document.getElementById(btn.dataset.tab).classList.add("active");
     });
   });
+
+  /* ---------- ROLE TOGGLE ---------- */
+  var roleHints = {
+    guia: "Vas a GUIAR: lee en voz alta los textos resaltados en dorado. El resto del grupo responderá lo que está en verde.",
+    todos: "Vas a RESPONDER: cuando el guía diga su parte, tú (y el grupo) responden lo resaltado en verde."
+  };
+  function setRole(r){
+    state.role = r;
+    document.getElementById("roleGuia").classList.toggle("active", r==="guia");
+    document.getElementById("roleTodos").classList.toggle("active", r==="todos");
+    document.body.classList.toggle("role-guia", r==="guia");
+    document.body.classList.toggle("role-todos", r==="todos");
+    document.getElementById("roleHint").textContent = roleHints[r];
+  }
+  document.getElementById("roleGuia").addEventListener("click", function(){ setRole("guia"); });
+  document.getElementById("roleTodos").addEventListener("click", function(){ setRole("todos"); });
+
+  /* ---------- DAY PICKER ---------- */
+  var dayPicker = document.getElementById("dayPicker");
+  DAY_ORDER.forEach(function(day){
+    var btn = document.createElement("button");
+    btn.className = "day-btn";
+    btn.dataset.day = day;
+    btn.innerHTML = day.slice(0,3) + (day===state.day ? "<span class=\"today-tag\">hoy</span>" : "");
+    btn.addEventListener("click", function(){ selectDay(day); });
+    dayPicker.appendChild(btn);
+  });
+
+  function selectDay(day){
+    state.day = day;
+    document.querySelectorAll(".day-btn").forEach(function(b){
+      b.classList.toggle("active", b.dataset.day===day);
+    });
+    var setKey = DAY_TO_SET[day];
+    var setData = SETS[setKey];
+    var otrosDias = DAY_ORDER.filter(function(d){ return DAY_TO_SET[d]===setKey && d!==day; });
+    var extra = otrosDias.length ? ("<small>Se rezan también el " + otrosDias.join(" y el ") + "</small>") : "";
+    document.getElementById("setBanner").innerHTML =
+      "<strong>" + day + "</strong> → Misterios " + setData.nombre + extra;
+    renderMysteryList(setKey);
+    renderFullMysteries(setKey);
+  }
+
+  /* ---------- BEAD COUNTER COMPONENT ---------- */
+  function counterHTML(key){
+    var n = state.beads[key] || 0;
+    var beads = "";
+    for(var i=1;i<=10;i++){
+      beads += "<span class=\"bead-dot" + (i<=n?" filled":"") + "\"></span>";
+    }
+    var statusText = n>=10 ? "¡Decena completa! 🎉" : ("Ave María " + n + " de 10");
+    return "<div class=\"counter-box\" data-key=\""+key+"\">" +
+      "<div class=\"beads-row\">"+beads+"</div>" +
+      "<div class=\"counter-status"+(n>=10?" done":"")+"\">"+statusText+"</div>" +
+      "<div class=\"counter-buttons\">" +
+        "<button class=\"cbtn minus\" data-act=\"minus\">➖</button>" +
+        "<button class=\"cbtn plus\" data-act=\"plus\""+(n>=10?" disabled":"")+">➕ Recé una</button>" +
+        "<button class=\"cbtn reset\" data-act=\"reset\">Reiniciar</button>" +
+      "</div></div>";
+  }
+
+  function updateCounterBox(box, key){
+    var n = state.beads[key] || 0;
+    var beadsRow = box.querySelector(".beads-row");
+    beadsRow.querySelectorAll(".bead-dot").forEach(function(dot, idx){
+      dot.classList.toggle("filled", idx < n);
+    });
+    var status = box.querySelector(".counter-status");
+    status.textContent = n>=10 ? "¡Decena completa! 🎉" : ("Ave María " + n + " de 10");
+    status.classList.toggle("done", n>=10);
+    box.querySelector("[data-act='plus']").disabled = n>=10;
+  }
+
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest("[data-act]");
+    if(!btn) return;
+    var box = btn.closest(".counter-box");
+    var key = box.dataset.key;
+    var n = state.beads[key] || 0;
+    var act = btn.dataset.act;
+    if(act==="plus") n = Math.min(10, n+1);
+    else if(act==="minus") n = Math.max(0, n-1);
+    else if(act==="reset") n = 0;
+    state.beads[key] = n;
+    saveBeads();
+    updateCounterBox(box, key);
+  });
+
+  /* ---------- MYSTERY DECADE RENDERER ---------- */
+  function decadeInner(setKey, idx, keyPrefix){
+    var m = SETS[setKey].misterios[idx];
+    var tipoSing = {gozosos:"Gozoso",dolorosos:"Doloroso",gloriosos:"Glorioso",luminosos:"Luminoso"}[setKey];
+    var key = keyPrefix + "_" + setKey + "_" + idx;
+    var html = "";
+    html += "<div class=\"meditacion\">"+m.meditacion+"</div>";
+    html += "<div class=\"prayer-block\">";
+    html += "<h4>📢 Se anuncia (Guía)</h4>";
+    html += "<div class=\"line guia\"><span class=\"tag\">Guía dice</span>"+ORDINALES[idx]+" Misterio "+tipoSing+": "+m.titulo+". Pidamos la gracia de "+m.fruto+".</div>";
+    html += "</div>";
+    html += "<div class=\"prayer-block\"><h4>🙏 Padre Nuestro</h4>";
+    html += "<div class=\"line guia\"><span class=\"tag\">Guía dice</span>Padre nuestro, que estás en el cielo, santificado sea tu Nombre, venga a nosotros tu reino, hágase tu voluntad en la tierra como en el cielo.</div>";
+    html += "<div class=\"line todos\"><span class=\"tag\">Todos responden</span>Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén.</div>";
+    html += "</div>";
+    html += "<div class=\"prayer-block\"><h4>🌸 Ave María (se repite 10 veces)</h4>";
+    html += "<div class=\"line guia\"><span class=\"tag\">Guía dice</span>Dios te salve, María, llena eres de gracia, el Señor es contigo. Bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús.</div>";
+    html += "<div class=\"line todos\"><span class=\"tag\">Todos responden</span>Santa María, Madre de Dios, ruega por nosotros, pecadores, ahora y en la hora de nuestra muerte. Amén.</div>";
+    html += counterHTML(key);
+    html += "</div>";
+    html += "<div class=\"prayer-block\"><h4>✨ Gloria</h4>";
+    html += "<div class=\"line guia\"><span class=\"tag\">Guía dice</span>Gloria al Padre, al Hijo y al Espíritu Santo.</div>";
+    html += "<div class=\"line todos\"><span class=\"tag\">Todos responden</span>Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén.</div>";
+    html += "</div>";
+    html += "<div class=\"prayer-block\"><h4>🕊️ Oh Jesús mío <span style=\"font-size:.8em;color:var(--text-soft);\">(todos juntos)</span></h4>";
+    html += "<div class=\"line single\">Oh Jesús mío, perdona nuestras culpas, líbranos del fuego del infierno, y lleva al cielo a todas las almas, especialmente a las más necesitadas de tu misericordia.</div>";
+    html += "</div>";
+    return html;
+  }
+
+  function renderMysteryList(setKey){
+    var container = document.getElementById("mysteryList");
+    container.innerHTML = "";
+    SETS[setKey].misterios.forEach(function(m, idx){
+      var det = document.createElement("details");
+      det.className = "mystery";
+      det.innerHTML =
+        "<summary><span class=\"m-num\">"+(idx+1)+"</span>" +
+        "<span class=\"m-titles\">"+m.titulo+"<span class=\"fruto\">Fruto: "+m.fruto+"</span></span>" +
+        "<span class=\"chevron\">▸</span></summary>" +
+        "<div class=\"mystery-body\">"+decadeInner(setKey, idx, "day")+
+        "<div class=\"nav-row\"></div></div>";
+      container.appendChild(det);
+    });
+    var allDetails = container.querySelectorAll("details.mystery");
+    allDetails.forEach(function(det, idx){
+      var navRow = det.querySelector(".nav-row");
+      if(idx>0){
+        var prev = document.createElement("button");
+        prev.className="nav-btn"; prev.textContent="← Misterio anterior";
+        prev.addEventListener("click", function(){ det.open=false; allDetails[idx-1].open=true; allDetails[idx-1].scrollIntoView({behavior:"smooth",block:"start"}); });
+        navRow.appendChild(prev);
+      } else { navRow.appendChild(document.createElement("span")); }
+      if(idx<allDetails.length-1){
+        var next = document.createElement("button");
+        next.className="nav-btn"; next.textContent="Misterio siguiente →";
+        next.addEventListener("click", function(){ det.open=false; allDetails[idx+1].open=true; allDetails[idx+1].scrollIntoView({behavior:"smooth",block:"start"}); });
+        navRow.appendChild(next);
+      } else { navRow.appendChild(document.createElement("span")); }
+    });
+  }
+
+  function renderFullMysteries(setKey){
+    var container = document.getElementById("full_mysteries");
+    container.innerHTML = "";
+    SETS[setKey].misterios.forEach(function(m, idx){
+      var det = document.createElement("details");
+      det.className = "mystery";
+      det.innerHTML =
+        "<summary><span class=\"m-num\">"+(idx+1)+"</span>" +
+        "<span class=\"m-titles\">"+m.titulo+"</span>" +
+        "<span class=\"chevron\">▸</span></summary>" +
+        "<div class=\"mystery-body\">"+decadeInner(setKey, idx, "full")+
+        "<label class=\"done-check\"><input type=\"checkbox\" data-progress=\"m"+idx+"\"> Marcar como hecho</label></div>";
+      container.appendChild(det);
+    });
+    wireProgressCheckboxes();
+  }
+
+  /* ---------- PROGRESS (Tab 2) ---------- */
+  var PROGRESS_KEYS = ["inicio","m0","m1","m2","m3","m4","letanias","final"];
+  function wireProgressCheckboxes(){
+    document.querySelectorAll("[data-progress]").forEach(function(cb){
+      var k = cb.dataset.progress;
+      cb.checked = !!(state.progress && state.progress[k]);
+      cb.onchange = function(){
+        state.progress[k] = cb.checked;
+        saveProgress();
+        updateProgressBar();
+      };
+    });
+    updateProgressBar();
+  }
+  function updateProgressBar(){
+    var total = PROGRESS_KEYS.length;
+    var done = 0;
+    PROGRESS_KEYS.forEach(function(k){ if(state.progress && state.progress[k]) done++; });
+    var pct = Math.round((done/total)*100);
+    document.getElementById("progressFill").style.width = pct+"%";
+    document.getElementById("progressLabel").textContent = done+" de "+total+" partes completadas";
+  }
+  document.getElementById("btnResetProgress").addEventListener("click", function(){
+    state.progress = {};
+    saveProgress();
+    document.querySelectorAll("[data-progress]").forEach(function(cb){ cb.checked=false; });
+    updateProgressBar();
+    state.beads = {};
+    saveBeads();
+    document.querySelectorAll(".counter-box").forEach(function(box){ updateCounterBox(box, box.dataset.key); });
+  });
+
+  /* ---------- INIT ---------- */
+  setRole("guia");
+  selectDay(state.day);
+  wireProgressCheckboxes();
+
 })();
 </script>
 </body>
